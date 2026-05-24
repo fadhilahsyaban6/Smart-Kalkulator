@@ -301,6 +301,7 @@ elif menu == "Kuis Fisika Dasar":
     st.markdown("Jawablah seluruh pertanyaan di bawah ini, kemudian klik tombol **Kirim Semua Jawaban** di bagian paling bawah.")
     
     soal_list = 
+    ]
         {
             "id": 1,
             "pertanyaan": "1. Jika Anda menimbang piknometer seberat 25 gram dalam keadaan kosong, lalu menjadi 50 gram saat diisi penuh cairan bervolume 25 mL, berapakah kerapatan cairan tersebut?",
