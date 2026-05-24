@@ -18,7 +18,7 @@ st.markdown("""
 # ==========================================
 # SIDEBAR NAVIGATION
 # ==========================================
-st.sidebar.title("⚛️ Smart Fisika V2.6")
+st.sidebar.title("⚛️ Smart Fisika V2.7")
 st.sidebar.markdown("---")
 menu = st.sidebar.radio(
     "Pilih Menu:",
@@ -232,7 +232,7 @@ elif menu == "Kalkulator Fisika":
         if st.button("Hitung Viskositas Sampel"):
             if t_ref > 0 and rho_ref > 0:
                 eta_sampel = ((t_sampel * rho_sampel) / (t_ref * rho_ref)) * eta_ref
-                st.success(f"**Hasil Viskositas Cairan Sampel:** {eta_sampel:.4f} (Satuan menyesuaikan input referensi Anda)")
+                st.success(f"**Hasil Viskositas Cairan Sampel:** {eta_sampel:.4f}")
             else:
                 st.error("Waktu alir dan densitas referensi harus lebih besar dari 0!")
 
@@ -294,7 +294,7 @@ elif menu == "Auto Unit Converter":
         st.success(f"**Hasil:** {nilai * (faktor[dari] / faktor[ke]):.6f} {ke}")
 
 # ==========================================
-# MENU 5: KUIS FISIKA DASAR (7 SOAL - FIXED)
+# MENU 5: KUIS FISIKA DASAR (7 SOAL - SAFE STRING)
 # ==========================================
 elif menu == "Kuis Fisika Dasar":
     st.title("✍️ Kuis Mandiri Fisika (7 Soal)")
@@ -339,4 +339,6 @@ elif menu == "Kuis Fisika Dasar":
         },
         {
             "id": 7,
-            "pertanyaan": "7. Jika hasil pembacaan Skala Utama jangka sorong adalah 3.1 cm dan Garis Nonius yang sejajar berada di angka 4 de
+            "pertanyaan": "7. Jika hasil pembacaan Skala Utama jangka sorong adalah 3.1 cm "
+                          "dan Garis Nonius yang sejajar berada di angka 4 "
+        
