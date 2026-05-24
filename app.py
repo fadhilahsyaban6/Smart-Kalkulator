@@ -337,7 +337,7 @@ elif menu == "Kuis Fisika Dasar":
             "opsi": ["A. Hukum Bernoulli", "B. Hukum Archimedes", "C. Hukum Stokes", "D. Hukum Pascal"],
             "jawaban": "B. Hukum Archimedes"
         },
-        {
+        
             "id": 7,
             "pertanyaan": "7. Jika hasil pembacaan Skala Utama jangka sorong adalah 3.1 cm "
                           "dan Garis Nonius yang sejajar berada di angka 4 "
