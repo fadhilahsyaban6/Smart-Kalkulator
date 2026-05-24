@@ -18,7 +18,7 @@ st.markdown("""
 # ==========================================
 # SIDEBAR NAVIGATION
 # ==========================================
-st.sidebar.title("⚛️ Smart Fisika")
+st.sidebar.title("⚛️ Smart Fisika V2.1")
 st.sidebar.markdown("---")
 menu = st.sidebar.radio(
     "Pilih Menu:",
@@ -29,273 +29,294 @@ menu = st.sidebar.radio(
 # MENU 1: BERANDA
 # ==========================================
 if menu == "Beranda":
-    st.title("🚀 Selamat Datang di Smart Physics Calculator")
-    st.subheader("Asisten Digital Belajar dan Menyelesaikan Masalah Fisika")
+    st.title("🚀 Smart Physics Calculator - Laboratorium Ed.")
+    st.subheader("Asisten Digital Praktikum Fisika & Analisis Data Laboratorium")
     
     st.markdown("""
-    Aplikasi ini dirancang khusus untuk membantu mahasiswa dalam memahami konsep fisika dasar secara lebih intuitif. 
-    Kelebihan kalkulator ini adalah menyediakan **langkah pengerjaan lengkap** secara transparan agar Anda memahami proses di balik angka yang muncul.
+    Aplikasi ini dirancang untuk mendukung konversi satuan tingkat lanjut (ekstrim makro hingga mikro/nano) 
+    serta simulasi perhitungan menggunakan instrumen laboratorium riil seperti **Piknometer** dan **Jangka Sorong**.
     """)
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.info("📊 **Mekanika & Pengukuran**\nPelajari ketelitian jangka sorong, kalkulasi galat praktikum, hingga sudut reposisi material.")
+        st.info("📊 **Metrologi & Pikno**\nHitung kerapatan cairan murni atau padatan secara presisi lewat simulasi bobot piknometer.")
     with col2:
-        st.success("💧 **Fluida & Termal**\nHitung koefisien viskositas fluida (Hukum Stokes) dan efek pemuaian panjang pada benda.")
+        st.success("💧 **Mikro & Fluida**\nKonversi otomatis satuan viskositas dari Poise ke cPoise dan analisis Hukum Stokes.")
     with col3:
-        st.warning("📝 **Evaluasi Mandiri**\nUji pemahaman teoritis dan hitungan Anda melalui menu Kuis Interaktif tingkat kuliah dasar.")
-
-    st.markdown("---")
-    st.subheader("💡 Tips Singkat Praktikum Fisika")
-    st.write("1. **Cek Satuan:** Selalu ubah besaran ke Satuan Internasional (SI) sebelum memasukkan angka ke rumus.")
-    st.write("2. **Perhatikan Galat:** Nilai galat yang kecil menunjukkan tingkat presisi yang tinggi pada percobaan Anda.")
+        st.warning("📝 **Akurasi Data**\nHitung nilai galat mutlak/relatif untuk memvalidasi tingkat ketelitian hasil pengukuran Anda.")
 
 # ==========================================
-# MENU 2: CHEAT SHEET
+# MENU 2: CHEAT SHEET (DENGAN TAMBAHAN RANGKUMAN HUKUM)
 # ==========================================
 elif menu == "Catatan Rumus & Cheat Sheet":
     st.title("📚 Kumpulan Catatan Rumus & Cheat Sheet")
     
-    tab1, tab2 = st.tabs(["📊 Tabel Satuan Internasional (SI)", "🌌 Konstanta Fisika Penting"])
+    tab1, tab2, tab3 = st.tabs(["📊 Tabel Satuan Eksperimen", "🌌 Konstanta Fisika Penting", "📜 Rangkuman Hukum Fisika"])
     
     with tab1:
-        st.subheader("Satuan Dasar & Turunan")
+        st.subheader("Satuan Konvensional vs Satuan Mikro Laboratorium")
         data_satuan = {
-            "Besaran": ["Panjang", "Massa", "Waktu", "Gaya", "Tekanan", "Energi/Usaha", "Kerapatan (Massa Jenis)"],
-            "Satuan SI": ["Meter (m)", "Kilogram (kg)", "Sekon (s)", "Newton (N)", "Pascal (Pa)", "Joule (J)", "kg/m³"],
-            "Dimensi": ["[L]", "[M]", "[T]", "[M][L][T]⁻²", "[M][L]⁻¹[T]⁻²", "[M][L]²[T]⁻²", "[M][L]⁻³"]
+            "Besaran": ["Panjang (Gelombang/Partikel)", "Massa (Analitis)", "Volume (Mikro)", "Viskositas", "Kerapatan"],
+            "Satuan Standar SI": ["Meter (m)", "Kilogram (kg)", "Meter Kubik (m³)", "Pascal sekon (Pa·s)", "kg/m³"],
+            "Satuan Sering di Lab": ["Milimeter (mm) / Mikrometer (μm)", "Gram (g) / Miligram (mg)", "Mililiter (mL) / Mikroliter (μL)", "Poise (P) / Centipoise (cP)", "g/cm³ atau g/mL"]
         }
         st.table(pd.DataFrame(data_satuan))
         
     with tab2:
-        st.subheader("Konstanta Fisika yang Sering Digunakan")
-        data_konstanta = {
-            "Simbol": ["g", "c", "G", "R", "e"],
-            "Nama Konstanta": ["Percepatan Gravitasi Bumi", "Kecepatan Cahaya", "Konstanta Gravitasi Universal", "Konstanta Gas Ideal", "Muatan Elektron"],
-            "Nilai Ketetapan": ["9.8 m/s²", "3 x 10⁸ m/s", "6.674 x 10⁻¹¹ N·m²/kg²", "8.314 J/(mol·K)", "1.602 x 10⁻¹⁹ C"]
-        }
-        st.table(pd.DataFrame(data_konstanta))
+        st.subheader("Konstanta Fisika & Faktor Pengali")
+        st.write("- **Percepatan Gravitasi (g):** $9.8\\text{ m/s}^2$ atau $980\\text{ cm/s}^2$")
+        st.write("- **Kecepatan Cahaya (c):** $3 \\times 10^8\\text{ m/s}$")
+        st.write("- **Kerapatan Air Murni ($4^\\circ\\text{C}$):** $1.000\\text{ g/cm}^3$ atau $1000\\text{ kg/m}^3$")
+
+    with tab3:
+        st.subheader("📜 Rangkuman Hukum Utama dalam Fisika Dasar")
+        st.caption("Gunakan ekspander di bawah untuk mempelajari bunyi dan persamaan dasar dari hukum-hukum fisika.")
+        
+        with st.expander("1. Hukum Newton (Mekanika)"):
+            st.markdown("""
+            *   **Hukum I Newton (Inersia):** Jika gaya total yang bekerja pada benda sama dengan nol, benda diam akan tetap diam dan benda bergerak akan tetap bergerak dengan kecepatan konstan. 
+                $$\Sigma F = 0$$
+            *   **Hukum II Newton:** Percepatan sebuah benda berbanding lurus dengan gaya total yang bekerja padanya dan berbanding terbalik dengan massanya.
+                $$F = m \cdot a$$
+            *   **Hukum III Newton (Aksi-Reaksi):** Untuk setiap aksi, selalu ada reaksi yang sama besar namun berlawanan arah.
+                $$F_{\\text{aksi}} = -F_{\\text{reaksi}}$$
+            """)
+            
+        with st.expander("2. Hukum Fluida (Stokes & Archimedes)"):
+            st.markdown("""
+            *   **Hukum Stokes:** Mengukur gaya hambat (gaya gesek) yang dialami oleh benda berbentuk bola yang jatuh bebas di dalam fluida kental.
+                $$F_s = 6 \pi \eta r v$$
+            *   **Hukum Archimedes:** Benda yang dicelupkan sebagian atau seluruhnya ke dalam fluida akan mengalami gaya ke atas yang besarnya sama dengan berat fluida yang dipindahkan.
+                $$F_a = \rho_f \cdot g \cdot V_{\\text{tercelup}}$$
+            *   **Hukum Bernoulli:** Peningkatan kecepatan pada fluida akan terjadi bersamaan dengan penurunan tekanan atau penurunan energi potensial fluida tersebut.
+                $$P + \\frac{1}{2}\rho v^2 + \rho gh = \\text{Konstan}$$
+            """)
+            
+        with st.expander("3. Hukum Termodinamika & Pemuaian"):
+            st.markdown("""
+            *   **Hukum Pemuaian Panjang:** Pertambahan panjang benda padat berbanding lurus dengan panjang awal, koefisien muai panjang, dan perubahan suhu.
+                $$\Delta L = L_0 \cdot \alpha \cdot \Delta T$$
+            *   **Hukum I Termodinamika (Kekekalan Energi):** Perubahan energi dalam sistem sama dengan kalor yang ditambahkan ke sistem dikurangi usaha yang dilakukan oleh sistem.
+                $$\Delta U = Q - W$$
+            """)
+            
+        with st.expander("4. Hukum Kelistrikan (Coulomb & Ohm)"):
+            st.markdown("""
+            *   **Hukum Coulomb:** Gaya tarik-menarik atau tolak-menolak antara dua muatan listrik sebanding dengan perkalian kedua muatan dan berbanding terbalik dengan kuadrat jaraknya.
+                $$F = k \cdot \\frac{q_1 \cdot q_2}{r^2}$$
+            *   **Hukum Ohm:** Kuat arus yang mengalir pada suatu penghantar sebanding dengan beda potensial (tegangan) antara ujung-ujung penghantar tersebut.
+                $$V = I \cdot R$$
+            """)
 
 # ==========================================
 # MENU 3: KALKULATOR FISIKA
 # ==========================================
 elif menu == "Kalkulator Fisika":
-    st.title("🧮 Kalkulator Fisika Pintar")
-    st.caption("Isi nilai yang diketahui untuk mendapatkan hasil dan langkah pengerjaannya.")
+    st.title("🧮 Kalkulator Fisika Pintar & Instrumen Lab")
     
     topik = st.selectbox(
         "Pilih Topik Kalkulator:",
-        ["Kerapatan (Massa Jenis)", "Mencari Nilai Galat", "Viskositas (Hukum Stokes)", 
+        ["Kerapatan & Metode Piknometer", "Mencari Nilai Galat", "Viskositas (Hukum Stokes)", 
          "Cara Baca Jangka Sorong", "Sudut Reposisi", "Koefisien Muai Panjang"]
     )
     
     st.markdown("---")
     
-    if topik == "Kerapatan (Massa Jenis)":
-        st.subheader("⚙️ Kalkulator Kerapatan (𝜌)")
-        st.write("**Rumus:** $𝜌 = \\frac{m}{V}$")
+    if topik == "Kerapatan & Metode Piknometer":
+        st.subheader("⚙️ Kalkulator Kerapatan (Metode Piknometer & Umum)")
         
-        m = st.number_input("Masukkan Massa (m) dalam kg:", value=1.0, min_value=0.0)
-        v = st.number_input("Masukkan Volume (V) dalam m³:", value=2.0, min_value=0.0001)
+        metode = st.radio("Pilih Metode Input:", ["Input Manual Langsung (m & V)", "Metode Piknometer Eksperimen"])
         
-        if st.button("Hitung Kerapatan"):
-            rho = m / v
-            st.success(f"**Hasil Akhir:** 𝜌 = {rho:.4f} kg/m³")
-            st.markdown("**Langkah Pengerjaan:**")
-            st.code(f"1. Diketahui: m = {m} kg, V = {v} m³\n2. Gunakan rumus 𝜌 = m / V\n3. 𝜌 = {m} / {v}\n4. Hasil = {rho:.4f} kg/m³")
+        if metode == "Input Manual Langsung (m & V)":
+            sat_massa = st.selectbox("Satuan Massa:", ["Kilogram (kg)", "Gram (g)", "Miligram (mg)"])
+            m = st.number_input("Masukkan Massa:", value=1.0, min_value=0.0)
+            
+            sat_vol = st.selectbox("Satuan Volume:", ["Meter Kubik (m³)", "Sentimeter Kubik (cm³)", "Mililiter (mL)", "Mikroliter (μL)"])
+            v = st.number_input("Masukkan Volume:", value=1.0, min_value=0.000001, format="%.6f")
+            
+            if st.button("Hitung Kerapatan"):
+                m_si = m if sat_massa == "Kilogram (kg)" else (m * 1e-3 if sat_massa == "Gram (g)" else m * 1e-6)
+                
+                if sat_vol == "Meter Kubik (m³)": v_si = v
+                elif sat_vol == "Sentimeter Kubik (cm³)" or sat_vol == "Mililiter (mL)": v_si = v * 1e-6
+                else: v_si = v * 1e-12
+                
+                rho = m_si / v_si
+                rho_g_cm3 = rho / 1000
+                
+                st.success(f"**Hasil Akhir:** 𝜌 = {rho:.4f} kg/m³ atau {rho_g_cm3:.4f} g/cm³ (g/mL)")
+                st.markdown("**Langkah Pengerjaan:**")
+                st.code(f"1. Konversi data ke SI: m = {m_si} kg, V = {v_si} m³\n2. Gunakan rumus 𝜌 = m / V\n3. 𝜌 = {m_si} / {v_si}\n4. Hasil = {rho:.4f} kg/m³")
+
+        elif metode == "Metode Piknometer Eksperimen":
+            st.write("Menghitung kerapatan cairan menggunakan bobot piknometer kosong dan isi.")
+            v_pikno = st.number_input("Volume nominal Piknometer (mL):", value=25.0)
+            w0 = st.number_input("Massa Piknometer Kosong + Tutup (gram):", value=20.1500, format="%.4f")
+            w1 = st.number_input("Massa Piknometer + Sampel Cairan (gram):", value=42.3400, format="%.4f")
+            
+            if st.button("Hitung Kerapatan Cairan"):
+                m_sampel = w1 - w0
+                rho_cairan = m_sampel / v_pikno
+                rho_si = rho_cairan * 1000
+                
+                st.success(f"**Massa Cairan:** {m_sampel:.4f} gram")
+                st.success(f"**Kerapatan Cairan:** {rho_cairan:.4f} g/mL  atau  {rho_si:.2f} kg/m³")
+                st.markdown("**Langkah Pengerjaan Lab:**")
+                st.code(f"1. Cari massa cairan (m) = W1 - W0 = {w1}g - {w0}g = {m_sampel:.4f} gram\n"
+                        f"2. Hitung kerapatan (𝜌) = massa / Volume Pikno = {m_sampel:.4f} / {v_pikno} mL\n"
+                        f"3. Hasil = {rho_cairan:.4f} g/mL")
 
     elif topik == "Mencari Nilai Galat":
         st.subheader("⚙️ Kalkulator Analisis Galat (Error)")
-        st.write("Mengukur tingkat kesalahan atau deviasi hasil praktikum dari nilai teoretis.")
-        
-        n_sebenarnya = st.number_input("Nilai Sebenarnya (Teoretis / Literatur):", value=10.0)
-        n_percobaan = st.number_input("Nilai Hasil Percobaan (Observasi):", value=9.8)
+        x_obs = st.number_input("Nilai Observasi (Hasil Praktikum/Ukur):", value=9.82)
+        x_ref = st.number_input("Nilai Referensi (Teoretis/Ketetapan):", value=10.00)
         
         if st.button("Hitung Galat"):
-            galat_mutlak = abs(n_sebenarnya - n_percobaan)
-            galat_relatif = (galat_mutlak / n_sebenarnya) * 100 if n_sebenarnya != 0 else 0
+            err_abs = abs(x_obs - x_ref)
+            err_rel = (err_abs / x_ref) * 100 if x_ref != 0 else 0
             
-            st.info(f"**Galat Mutlak:** {galat_mutlak:.4f}")
-            st.success(f"**Galat Relatif:** {galat_relatif:.2f}%")
-            
-            st.markdown("**Langkah Pengerjaan:**")
-            st.code(f"1. Galat Mutlak = |Nilai Sebenarnya - Nilai Percobaan|\n"
-                    f"   Galat Mutlak = |{n_sebenarnya} - {n_percobaan}| = {galat_mutlak:.4f}\n"
-                    f"2. Galat Relatif = (Galat Mutlak / Nilai Sebenarnya) * 100%\n"
-                    f"   Galat Relatif = ({galat_mutlak:.4f} / {n_sebenarnya}) * 100% = {galat_relatif:.2f}%")
+            st.info(f"**Galat Mutlak (Absolut):** {err_abs:.4f}")
+            st.success(f"**Galat Relatif (Persen Kesalahan):** {err_rel:.2f}%")
 
     elif topik == "Viskositas (Hukum Stokes)":
         st.subheader("⚙️ Kalkulator Viskositas Fluida (𝜂)")
-        st.write("**Rumus:** $𝜂 = \\frac{2r^2g(𝜌_b - 𝜌_f)}{9v}$")
+        st.write("Dilengkapi konversi otomatis satuan ketukan mikro/mili.")
         
-        r = st.number_input("Jari-jari bola (r) dalam meter:", value=0.005, format="%.5f")
+        r_unit = st.selectbox("Satuan Jari-jari:", ["Meter (m)", "Sentimeter (cm)", "Milimeter (mm)"])
+        r_val = st.number_input("Masukkan Nilai Jari-jari bola (r):", value=2.0, format="%.4f")
+        
         rho_b = st.number_input("Kerapatan Bola (𝜌b) dalam kg/m³:", value=7800.0)
         rho_f = st.number_input("Kerapatan Fluida (𝜌f) dalam kg/m³:", value=1260.0)
-        v_terminal = st.number_input("Kecepatan Terminal bola (v) dalam m/s:", value=0.5)
-        g = 9.8
+        v_terminal = st.number_input("Kecepatan Terminal (v) dalam m/s:", value=0.5)
         
         if st.button("Hitung Viskositas"):
-            if v_terminal > 0:
-                pembilang = 2 * (r**2) * g * (rho_b - rho_f)
-                penyebut = 9 * v_terminal
-                eta = pembilang / penyebut
-                
-                st.success(f"**Hasil Akhir:** Koefisien Viskositas (𝜂) = {eta:.4f} Pa·s")
-                st.markdown("**Langkah Pengerjaan:**")
-                st.code(f"1. Diketahui: r={r} m, 𝜌b={rho_b} kg/m³, 𝜌f={rho_f} kg/m³, v={v_terminal} m/s, g=9.8 m/s²\n"
-                        f"2. Selisih Kerapatan (𝜌b - 𝜌f) = {rho_b} - {rho_f} = {rho_b - rho_f} kg/m³\n"
-                        f"3. Masukkan ke rumus: 𝜂 = (2 * ({r}^2) * 9.8 * {rho_b - rho_f}) / (9 * {v_terminal})\n"
-                        f"4. Hasil Akhir = {pembilang:.5f} / {penyebut:.5f} = {eta:.4f} Pa·s")
-            else:
-                st.error("Kecepatan terminal (v) harus lebih besar dari nol.")
+            r = r_val if r_unit == "Meter (m)" else (r_val * 0.01 if r_unit == "Sentimeter (cm)" else r_val * 0.001)
+            g = 9.8
+            
+            eta = (2 * (r**2) * g * (rho_b - rho_f)) / (9 * v_terminal)
+            eta_poise = eta * 10
+            eta_cp = eta * 1000
+            
+            st.success(f"**Hasil Akhir (SI):** 𝜂 = {eta:.4f} Pa·s (atau N·s/m²)")
+            st.info(f"**Satuan Alternatif Lab:** {eta_poise:.2f} Poise (P)  |  {eta_cp:.2f} Centipoise (cP)")
 
     elif topik == "Cara Baca Jangka Sorong":
         st.subheader("⚙️ Kalkulator Pembacaan Jangka Sorong")
-        
-        skala_utama = st.number_input("Masukkan Nilai Skala Utama (cm) [Angka sebelum nol nonius]:", value=2.4, step=0.1)
-        skala_nonius = st.number_input("Masukkan Garis Nonius yang berimpit tegak lurus (skala skala 0-10):", value=7, min_value=0, max_value=20)
+        su = st.number_input("Skala Utama (cm):", value=2.4, step=0.1)
+        sn = st.number_input("Garis Nonius yang sejajar:", value=7, min_value=0)
         ketelitian = st.selectbox("Ketelitian Alat (mm):", [0.1, 0.05, 0.02])
         
-        if st.button("Hitung Hasil Pengukuran"):
-            nonius_cm = (skala_nonius * ketelitian) / 10
-            hasil_ukur = skala_utama + nonius_cm
+        if st.button("Hitung"):
+            nonius_cm = (sn * ketelitian) / 10
+            hasil_cm = su + nonius_cm
+            hasil_mm = hasil_cm * 10
+            hasil_um = hasil_mm * 1000
             
-            st.success(f"**Hasil Pengukuran:** {hasil_ukur:.3f} cm")
-            st.markdown("**Langkah Pembacaan:**")
-            st.code(f"1. Skala Utama (SU) = {skala_utama} cm\n"
-                    f"2. Skala Nonius (SN) = {skala_nonius} x {ketelitian} mm = {skala_nonius * ketelitian} mm = {nonius_cm} cm\n"
-                    f"3. Hasil Pengukuran Total = SU + SN = {skala_utama} + {nonius_cm} = {hasil_ukur:.3f} cm")
+            st.success(f"**Hasil:** {hasil_cm:.3f} cm  |  {hasil_mm:.2f} mm  |  {hasil_um:.0f} μm (Mikrometer)")
 
     elif topik == "Sudut Reposisi":
-        st.subheader("⚙️ Kalkulator Sudut Reposisi (𝜃)")
-        st.write("Mengukur sudut longsor maksimum tumpukan material granular basah/kering. Rumus: $\\tan(𝜃) = \\frac{h}{r}$")
-        
-        h = st.number_input("Tinggi tumpukan kerucut material (h) dalam meter:", value=0.5)
-        r_alas = st.number_input("Jari-jari lingkaran alas kerucut (r) dalam meter:", value=0.8)
-        
-        if st.button("Hitung Sudut Reposisi"):
-            if r_alas > 0:
-                tan_theta = h / r_alas
-                theta_rad = math.atan(tan_theta)
-                theta_deg = math.degrees(theta_rad)
-                
-                st.success(f"**Hasil Akhir:** Sudut Reposisi (𝜃) = {theta_deg:.2f}°")
-                st.markdown("**Langkah Pengerjaan:**")
-                st.code(f"1. tan(𝜃) = h / r = {h} / {r_alas} = {tan_theta:.4f}\n"
-                        f"2. 𝜃 = arctan({tan_theta:.4f})\n"
-                        f"3. Hasil dalam derajat = {theta_deg:.2f}°")
-            else:
-                st.error("Jari-jari alas harus lebih besar dari 0.")
+        st.subheader("⚙️ Sudut Reposisi Bahan")
+        h = st.number_input("Tinggi Kerucut (meter):", value=0.3)
+        r = st.number_input("Jari-jari Alas (meter):", value=0.5)
+        if st.button("Hitung Sudut"):
+            tan_th = h / r
+            th_deg = math.degrees(math.atan(tan_th))
+            st.success(f"Sudut Reposisi: {th_deg:.2f}°")
 
     elif topik == "Koefisien Muai Panjang":
-        st.subheader("⚙️ Kalkulator Pemuaian Panjang Benda Padat")
-        st.write("**Rumus:** $𝛥L = L_0 \\cdot \\alpha \\cdot 𝛥T$")
+        st.subheader("⚙️ Pemuaian Termal Panjang")
+        l0 = st.number_input("Panjang Mula-mula (m):", value=1.0)
+        alpha = st.number_input("Koefisien Muai (α) [1/°C]:", value=0.000012, format="%.6f")
+        dt = st.number_input("Perubahan Suhu (ΔT dalam °C):", value=50.0)
         
-        l0 = st.number_input("Panjang Awal Benda (L0) dalam meter:", value=10.0)
-        alpha = st.number_input("Koefisien Muai Panjang (α) per °C [Contoh Besi = 0.000012]:", value=0.000012, format="%.6f")
-        t_awal = st.number_input("Suhu Mula-mula T1 (°C):", value=25.0)
-        t_akhir = st.number_input("Suhu Akhir T2 (°C):", value=100.0)
-        
-        if st.button("Hitung Pertambahan Panjang"):
-            dt = t_akhir - t_awal
+        if st.button("Hitung Muai"):
             dl = l0 * alpha * dt
-            l_total = l0 + dl
-            
-            st.success(f"**Pertambahan Panjang (𝛥L):** {dl:.6f} meter")
-            st.info(f"**Panjang Total Akhir (Lt):** {l_total:.6f} meter")
-            st.markdown("**Langkah Pengerjaan:**")
-            st.code(f"1. Cari Selisih Suhu (𝛥T) = T2 - T1 = {t_akhir} - {t_awal} = {dt} °C\n"
-                    f"2. Hitung 𝛥L = L0 * α * 𝛥T\n"
-                    f"   𝛥L = {l0} * {alpha:.6f} * {dt} = {dl:.6f} meter\n"
-                    f"3. Panjang Total = L0 + 𝛥L = {l0} + {dl:.6f} = {l_total:.6f} meter")
+            st.success(f"Pertambahan Panjang (ΔL): {dl:.6f} m  ({dl*1000:.4f} mm)")
 
 # ==========================================
 # MENU 4: AUTO UNIT CONVERTER
 # ==========================================
 elif menu == "Auto Unit Converter":
-    st.title("🔄 Auto Unit Converter")
-    st.write("Konversi otomatis besaran fisika tanpa perlu menghitung manual.")
+    st.title("🔄 Auto Unit Converter (Tingkat Mikro & Makro)")
+    st.write("Sistem konversi mencakup jangkauan skala laboratorium dari Nano hingga Kilo.")
     
-    kategori = st.selectbox("Pilih Kategori Besaran:", ["Panjang", "Massa", "Suhu"])
+    kategori = st.selectbox("Pilih Kategori Besaran:", ["Panjang (Jarak)", "Massa (Bobot)", "Volume (Ruang)", "Viskositas"])
+    nilai = st.number_input("Masukkan Nilai Angka:", value=1.0, format="%.6f")
     
-    if kategori == "Panjang":
-        nilai = st.number_input("Masukkan Angka:", value=1.0)
-        dari = st.selectbox("Dari Satuan:", ["Meter (m)", "Centimeter (cm)", "Kilometer (km)"])
-        ke = st.selectbox("Ke Satuan:", ["Meter (m)", "Centimeter (cm)", "Kilometer (km)"])
+    if kategori == "Panjang (Jarak)":
+        dari = st.selectbox("Dari Satuan:", ["Kilometer (km)", "Meter (m)", "Centimeter (cm)", "Milimeter (mm)", "Mikrometer (μm)", "Nanometer (nm)"])
+        ke = st.selectbox("Ke Satuan:", ["Kilometer (km)", "Meter (m)", "Centimeter (cm)", "Milimeter (mm)", "Mikrometer (μm)", "Nanometer (nm)"])
         
-        faktor = {"Meter (m)": 1.0, "Centimeter (cm)": 0.01, "Kilometer (km)": 1000.0}
+        faktor = {"Kilometer (km)": 1000.0, "Meter (m)": 1.0, "Centimeter (cm)": 0.01, "Milimeter (mm)": 0.001, "Mikrometer (μm)": 1e-6, "Nanometer (nm)": 1e-9}
         hasil = nilai * (faktor[dari] / faktor[ke])
-        st.success(f"**Hasil Konversi:** {nilai} {dari} = {hasil} {ke}")
+        st.success(f"**Hasil Konversi Jarak:** {nilai} {dari} = {hasil:.6f} {ke}")
         
-    elif kategori == "Massa":
-        nilai = st.number_input("Masukkan Angka:", value=1.0)
-        dari = st.selectbox("Dari Satuan:", ["Kilogram (kg)", "Gram (g)"])
-        ke = st.selectbox("Ke Satuan:", ["Kilogram (kg)", "Gram (g)"])
+    elif kategori == "Massa (Bobot)":
+        dari = st.selectbox("Dari Satuan:", ["Ton", "Kilogram (kg)", "Gram (g)", "Miligram (mg)", "Mikrogram (μg)"])
+        ke = st.selectbox("Ke Satuan:", ["Ton", "Kilogram (kg)", "Gram (g)", "Miligram (mg)", "Mikrogram (μg)"])
         
-        faktor = {"Kilogram (kg)": 1.0, "Gram (g)": 0.001}
+        faktor = {"Ton": 1e6, "Kilogram (kg)": 1000.0, "Gram (g)": 1.0, "Miligram (mg)": 0.001, "Mikrogram (μg)": 1e-6}
         hasil = nilai * (faktor[dari] / faktor[ke])
-        st.success(f"**Hasil Konversi:** {nilai} {dari} = {hasil} {ke}")
+        st.success(f"**Hasil Konversi Massa:** {nilai} {dari} = {hasil:.6f} {ke}")
 
-    elif kategori == "Suhu":
-        nilai = st.number_input("Masukkan Nilai awal (°Celsius):", value=0.0)
-        st.write("**Hasil Konversi Langsung:**")
-        st.info(f"🌡️ **Kelvin (K):** {nilai + 273.15} K")
-        st.info(f"🌡️ **Fahrenheit (°F):** {(nilai * 9/5) + 32} °F")
-        st.info(f"🌡️ **Reamur (°R):** {nilai * 4/5} °R")
+    elif kategori == "Volume (Ruang)":
+        dari = st.selectbox("Dari Satuan:", ["Meter Kubik (m³)", "Liter (L)", "Mililiter / cc (mL)", "Mikroliter (μL)"])
+        ke = st.selectbox("Ke Satuan:", ["Meter Kubik (m³)", "Liter (L)", "Mililiter / cc (mL)", "Mikroliter (μL)"])
+        
+        faktor = {"Meter Kubik (m³)": 1000.0, "Liter (L)": 1.0, "Mililiter / cc (mL)": 0.001, "Mikroliter (μL)": 1e-6}
+        hasil = nilai * (faktor[dari] / faktor[ke])
+        st.success(f"**Hasil Konversi Volume:** {nilai} {dari} = {hasil:.6f} {ke}")
+
+    elif kategori == "Viskositas":
+        dari = st.selectbox("Dari Satuan:", ["Pascal sekon (Pa·s)", "Poise (P)", "Centipoise (cP)"])
+        ke = st.selectbox("Ke Satuan:", ["Pascal sekon (Pa·s)", "Poise (P)", "Centipoise (cP)"])
+        
+        faktor = {"Pascal sekon (Pa·s)": 1.0, "Poise (P)": 0.1, "Centipoise (cP)": 0.001}
+        hasil = nilai * (faktor[dari] / faktor[ke])
+        st.success(f"**Hasil Konversi Viskositas:** {nilai} {dari} = {hasil:.6f} {ke}")
 
 # ==========================================
 # MENU 5: KUIS FISIKA DASAR
 # ==========================================
 elif menu == "Kuis Fisika Dasar":
     st.title("✍️ Kuis Mandiri Fisika (Tingkat Kuliah Dasar)")
-    st.write("Uji pemahaman Anda. Klik tombol di bawah untuk melihat skor dan pembahasan otomatis.")
     
     soal_list = [
         {
             "tipe": "PG",
-            "pertanyaan": "Gaya hambat atau gesekan berbanding lurus dengan viskositas yang dialami oleh benda bulat di dalam fluida sebanding dengan Hukum...",
-            "opsi": ["A. Archimedes", "B. Stokes", "C. Bernoulli", "D. Pascal"],
-            "jawaban": "B. Stokes",
-            "pembahasan": "Hukum Stokes menyatakan bahwa gaya hambat (Ff) pada bola yang bergerak di dalam fluida kental dipengaruhi oleh koefisien viskositas fluida."
+            "pertanyaan": "Jika Anda menimbang piknometer seberat 25 gram dalam keadaan kosong, lalu menjadi 50 gram saat diisi penuh cairan bervolume 25 mL, berapakah kerapatan cairan tersebut?",
+            "opsi": ["A. 0.5 g/mL", "B. 1.0 g/mL", "C. 2.0 g/mL", "D. 1.5 g/mL"],
+            "jawaban": "B. 1.0 g/mL",
+            "pembahasan": "Massa cairan = 50g - 25g = 25 gram. Kerapatan = massa / volume = 25g / 25mL = 1.0 g/mL (Kerapatan air)."
         },
         {
             "tipe": "PG",
-            "pertanyaan": "Manakah di bawah ini yang merupakan dimensi dari besaran Tekanan?",
-            "opsi": ["A. [M][L]⁻¹[T]⁻²", "B. [M][L][T]⁻²", "C. [M][L]²[T]⁻²", "D. [M][L]⁻³"],
-            "jawaban": "A. [M][L]⁻¹[T]⁻²",
-            "pembahasan": "Tekanan = Gaya / Luas = (kg·m/s²) / m² = kg / (m·s²). Dimensinya adalah [M][L]⁻¹[T]⁻²."
-        },
-        {
-            "tipe": "Isian",
-            "pertanyaan": "Jika sebatang logam dipanaskan dan mengalami kenaikan suhu, sifat fisik panjangnya akan bertambah. Fenomena ini disebut apa? (Isi dengan 1 kata huruf kecil)",
-            "jawaban": "pemuaian",
-            "pembahasan": "Pemuaian adalah bertambahnya ukuran zat (panjang, luas, atau volume) akibat menerima energi panas (kalor)."
+            "pertanyaan": "Faktor pengali konversi satuan dari Centipoise (cP) menuju satuan dasar Pascal sekon (Pa·s) yang benar adalah...",
+            "opsi": ["A. Dikali 1000", "B. Dikali 10", "C. Dibagi 1000", "D. Dibagi 10"],
+            "jawaban": "C. Dibagi 1000",
+            "pembahasan": "1 Pa·s sama dengan 10 Poise atau setara dengan 1000 Centipoise (cP). Sehingga dari cP ke Pa·s harus dibagi 1000."
         }
     ]
     
     skor = 0
-    with st.form("kuis_fisika"):
+    with st.form("kuis_v2"):
         user_ans = {}
         for i, q in enumerate(soal_list):
             st.markdown(f"**Soal {i+1}: {q['pertanyaan']}**")
-            if q["tipe"] == "PG":
-                user_ans[i] = st.radio(f"Pilih Jawaban Soal {i+1}:", q["opsi"], key=f"q_pg_{i}")
-            else:
-                user_ans[i] = st.text_input(f"Ketik Jawaban Soal {i+1}:", key=f"q_is_{i}").strip().lower()
+            user_ans[i] = st.radio(f"Pilih Jawaban Soal {i+1}:", q["opsi"], key=f"q_{i}")
             st.markdown("---")
             
         submit = st.form_submit_button("Kirim & Evaluasi Jawaban")
         
     if submit:
-        st.subheader("📊 Pembahasan & Hasil Analisis Kuis")
+        st.subheader("📊 Pembahasan Hasil")
         for i, q in enumerate(soal_list):
             if user_ans[i] == q["jawaban"]:
                 st.success(f"✅ **Soal {i+1}: BENAR**")
                 skor += 1
             else:
-                st.error(f"❌ **Soal {i+1}: SALAH** (Jawaban Anda: {user_ans[i]} | Kunci: {q['jawaban']})")
+                st.error(f"❌ **Soal {i+1}: SALAH**")
             st.caption(f"💡 *Pembahasan:* {q['pembahasan']}")
-            st.write(" ")
             
         st.balloons()
-        st.metric(label="Total Nilai Benar Anda", value=f"{skor} / {len(soal_list)}")
+        st.metric(label="Total Skor", value=f"{skor} / {len(soal_list)}")
