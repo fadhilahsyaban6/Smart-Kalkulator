@@ -18,7 +18,7 @@ st.markdown("""
 # ==========================================
 # SIDEBAR NAVIGATION
 # ==========================================
-st.sidebar.title("⚛️ Smart Fisika V2.5")
+st.sidebar.title("⚛️ Smart Fisika V2.6")
 st.sidebar.markdown("---")
 menu = st.sidebar.radio(
     "Pilih Menu:",
@@ -227,11 +227,10 @@ elif menu == "Kalkulator Fisika":
             st.markdown("##### **Data Cairan Referensi (Misal: Air Suling)**")
             t_ref = st.number_input("Waktu Alir Air Suling (detik):", value=10.2, format="%.2f")
             rho_ref = st.number_input("Densitas Air Suling (g/mL atau g/cm³):", value=1.0000, format="%.4f")
-            eta_ref = st.number_input("Viskositas Air Suling (cP atau Poise):", value=0.8900, format="%.4f", help="Viskositas air pada 25°C sekitar 0.89 cP")
+            eta_ref = st.number_input("Viskositas Air Suling (cP atau Poise):", value=0.8900, format="%.4f")
             
         if st.button("Hitung Viskositas Sampel"):
             if t_ref > 0 and rho_ref > 0:
-                # Perhitungan berdasarkan rumus di catatan IMG_20260524_154444.jpg
                 eta_sampel = ((t_sampel * rho_sampel) / (t_ref * rho_ref)) * eta_ref
                 st.success(f"**Hasil Viskositas Cairan Sampel:** {eta_sampel:.4f} (Satuan menyesuaikan input referensi Anda)")
             else:
@@ -295,13 +294,12 @@ elif menu == "Auto Unit Converter":
         st.success(f"**Hasil:** {nilai * (faktor[dari] / faktor[ke]):.6f} {ke}")
 
 # ==========================================
-# MENU 5: KUIS FISIKA DASAR (7 SOAL)
+# MENU 5: KUIS FISIKA DASAR (7 SOAL - FIXED)
 # ==========================================
 elif menu == "Kuis Fisika Dasar":
     st.title("✍️ Kuis Mandiri Fisika (7 Soal)")
-    st.markdown("Jawablah seluruh pertanyaan di bawah ini, kemudian klik tombol **Kirim Semua Jawaban** di bagian paling bawah untuk mengecek hasilnya.")
+    st.markdown("Jawablah seluruh pertanyaan di bawah ini, kemudian klik tombol **Kirim Semua Jawaban** di bagian paling bawah.")
     
-    # List Soal Kuis
     soal_list = [
         {
             "id": 1,
@@ -339,4 +337,6 @@ elif menu == "Kuis Fisika Dasar":
             "opsi": ["A. Hukum Bernoulli", "B. Hukum Archimedes", "C. Hukum Stokes", "D. Hukum Pascal"],
             "jawaban": "B. Hukum Archimedes"
         },
-   
+        {
+            "id": 7,
+            "pertanyaan": "7. Jika hasil pembacaan Skala Utama jangka sorong adalah 3.1 cm dan Garis Nonius yang sejajar berada di angka 4 de
