@@ -18,7 +18,7 @@ st.markdown("""
 # ==========================================
 # SIDEBAR NAVIGATION
 # ==========================================
-st.sidebar.title("⚛️ Smart Fisika V2.4")
+st.sidebar.title("⚛️ Smart Fisika V2.5")
 st.sidebar.markdown("---")
 menu = st.sidebar.radio(
     "Pilih Menu:",
@@ -34,19 +34,19 @@ if menu == "Beranda":
     
     st.markdown("""
     Aplikasi ini dirancang untuk mendukung konversi satuan tingkat lanjut (ekstrim makro hingga mikro/nano) 
-    serta simulasi perhitungan menggunakan instrumen laboratorium riil seperti **Piknometer** dan **Jangka Sorong**.
+    serta simulasi perhitungan menggunakan instrumen laboratorium riil seperti **Piknometer** dan **Viskosimeter Ostwald**.
     """)
     
     col1, col2, col3 = st.columns(3)
     with col1:
         st.info("📊 **Metrologi & Pikno**\nHitung kerapatan cairan murni atau padatan secara presisi lewat simulasi bobot piknometer.")
     with col2:
-        st.success("💧 **Mikro & Fluida**\nKonversi otomatis satuan viskositas dari Poise ke cPoise dan analisis Hukum Stokes.")
+        st.success("💧 **Viskositas Relatif**\nHitung viskositas sampel cairan dibanding air suling berdasarkan metode waktu alir pipa kapiler.")
     with col3:
         st.warning("📝 **Akurasi Data**\nHitung nilai galat mutlak/relatif untuk memvalidasi tingkat ketelitian hasil pengukuran Anda.")
 
 # ==========================================
-# MENU 2: CHEAT SHEET (FIXED AND EXPANDED)
+# MENU 2: CHEAT SHEET
 # ==========================================
 elif menu == "Catatan Rumus & Cheat Sheet":
     st.title("📚 Kumpulan Catatan Rumus & Cheat Sheet")
@@ -90,11 +90,11 @@ elif menu == "Catatan Rumus & Cheat Sheet":
                 *Penjelasan:* Ketika Anda memberikan gaya pada suatu benda (aksi), benda tersebut akan membalas dengan gaya yang sama besar namun arahnya berlawanan (reaksi).
             """)
             
-        with st.expander("2. Hukum Fluida (Stokes, Archimedes & Bernoulli)"):
+        with st.expander("2. Hukum Fluida (Ostwald, Archimedes & Bernoulli)"):
             st.markdown("""
-            *   **Hukum Stokes:** 
-                $$F_s = 6 \pi \eta r v$$
-                *Penjelasan:* Mengukur gaya gesek/hambat zat cair kental terhadap benda berbentuk bola yang jatuh ke dalamnya. Sangat krusial saat praktikum menghitung nilai viskositas ($\eta$) oli atau gliserin di lab.
+            *   **Viskositas Relatif (Ostwald):** 
+                $$\\eta_1 = \\frac{t_1 \\cdot \\rho_1}{t_2 \\cdot \\rho_2} \\cdot \\eta_2$$
+                *Penjelasan:* Menentukan kekentalan (viskositas) suatu cairan sampel dengan membandingkan waktu alir ($t$) dan densitas ($\rho$) sampel tersebut terhadap cairan referensi yang sudah diketahui nilai viskositasnya (biasanya air suling).
             *   **Hukum Archimedes:** 
                 $$F_a = \rho_f \cdot g \cdot V_{\\text{tercelup}}$$
                 *Penjelasan:* Setiap benda yang dicelupkan ke dalam fluida akan menerima gaya angkat ke atas ($F_a$) yang besarnya persis sama dengan berat fluida yang ditumpahkan atau dipindahkan oleh benda tersebut.
@@ -165,7 +165,7 @@ elif menu == "Kalkulator Fisika":
     
     topik = st.selectbox(
         "Pilih Topik Kalkulator:",
-        ["Kerapatan & Metode Piknometer", "Mencari Nilai Galat", "Viskositas (Hukum Stokes)", 
+        ["Kerapatan & Metode Piknometer", "Mencari Nilai Galat", "Viskositas Relatif (Ostwald Method)", 
          "Cara Baca Jangka Sorong", "Sudut Reposisi", "Koefisien Muai Panjang"]
     )
     
@@ -213,19 +213,29 @@ elif menu == "Kalkulator Fisika":
             st.info(f"**Galat Mutlak:** {err_abs:.4f}")
             st.success(f"**Galat Relatif:** {err_rel:.2f}%")
 
-    elif topik == "Viskositas (Hukum Stokes)":
-        st.subheader("⚙️ Kalkulator Viskositas Fluida (𝜂)")
-        r_unit = st.selectbox("Satuan Jari-jari:", ["Meter (m)", "Sentimeter (cm)", "Milimeter (mm)"])
-        r_val = st.number_input("Masukkan Nilai Jari-jari bola (r):", value=2.0, format="%.4f")
-        rho_b = st.number_input("Kerapatan Bola (𝜌b) dalam kg/m³:", value=7800.0)
-        rho_f = st.number_input("Kerapatan Fluida (𝜌f) dalam kg/m³:", value=1260.0)
-        v_terminal = st.number_input("Kecepatan Terminal (v) dalam m/s:", value=0.5)
+    elif topik == "Viskositas Relatif (Ostwald Method)":
+        st.subheader("⚙️ Kalkulator Viskositas Metode Perbandingan Ostwald")
+        st.markdown("*(Sesuai rumus perbandingan waktu alir & densitas cairan)*")
         
-        if st.button("Hitung Viskositas"):
-            r = r_val if r_unit == "Meter (m)" else (r_val * 0.01 if r_unit == "Sentimeter (cm)" else r_val * 0.001)
-            g = 9.8
-            eta = (2 * (r**2) * g * (rho_b - rho_f)) / (9 * v_terminal)
-            st.success(f"**Hasil Akhir (SI):** 𝜂 = {eta:.4f} Pa·s")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("##### **Data Sampel (Misal: Air Sabun)**")
+            t_sampel = st.number_input("Waktu Alir Sampel (detik):", value=15.5, format="%.2f")
+            rho_sampel = st.number_input("Densitas Sampel (g/mL atau g/cm³):", value=1.0500, format="%.4f")
+            
+        with col2:
+            st.markdown("##### **Data Cairan Referensi (Misal: Air Suling)**")
+            t_ref = st.number_input("Waktu Alir Air Suling (detik):", value=10.2, format="%.2f")
+            rho_ref = st.number_input("Densitas Air Suling (g/mL atau g/cm³):", value=1.0000, format="%.4f")
+            eta_ref = st.number_input("Viskositas Air Suling (cP atau Poise):", value=0.8900, format="%.4f", help="Viskositas air pada 25°C sekitar 0.89 cP")
+            
+        if st.button("Hitung Viskositas Sampel"):
+            if t_ref > 0 and rho_ref > 0:
+                # Perhitungan berdasarkan rumus di catatan IMG_20260524_154444.jpg
+                eta_sampel = ((t_sampel * rho_sampel) / (t_ref * rho_ref)) * eta_ref
+                st.success(f"**Hasil Viskositas Cairan Sampel:** {eta_sampel:.4f} (Satuan menyesuaikan input referensi Anda)")
+            else:
+                st.error("Waktu alir dan densitas referensi harus lebih besar dari 0!")
 
     elif topik == "Cara Baca Jangka Sorong":
         st.subheader("⚙️ Kalkulator Pembacaan Jangka Sorong")
@@ -285,20 +295,48 @@ elif menu == "Auto Unit Converter":
         st.success(f"**Hasil:** {nilai * (faktor[dari] / faktor[ke]):.6f} {ke}")
 
 # ==========================================
-# MENU 5: KUIS FISIKA DASAR
+# MENU 5: KUIS FISIKA DASAR (7 SOAL)
 # ==========================================
 elif menu == "Kuis Fisika Dasar":
-    st.title("✍️ Kuis Mandiri Fisika")
+    st.title("✍️ Kuis Mandiri Fisika (7 Soal)")
+    st.markdown("Jawablah seluruh pertanyaan di bawah ini, kemudian klik tombol **Kirim Semua Jawaban** di bagian paling bawah untuk mengecek hasilnya.")
+    
+    # List Soal Kuis
     soal_list = [
         {
-            "pertanyaan": "Jika Anda menimbang piknometer seberat 25 gram dalam keadaan kosong, lalu menjadi 50 gram saat diisi penuh cairan bervolume 25 mL, berapakah kerapatan cairan tersebut?",
+            "id": 1,
+            "pertanyaan": "1. Jika Anda menimbang piknometer seberat 25 gram dalam keadaan kosong, lalu menjadi 50 gram saat diisi penuh cairan bervolume 25 mL, berapakah kerapatan cairan tersebut?",
             "opsi": ["A. 0.5 g/mL", "B. 1.0 g/mL", "C. 2.0 g/mL", "D. 1.5 g/mL"],
             "jawaban": "B. 1.0 g/mL"
-        }
-    ]
-    with st.form("kuis_v3"):
-        ans = st.radio(soal_list[0]["pertanyaan"], soal_list[0]["opsi"])
-        submit = st.form_submit_button("Kirim Jawaban")
-    if submit:
-        if ans == soal_list[0]["jawaban"]: st.success("✅ Jawaban Anda Benar!")
-        else: st.error("❌ Jawaban Salah, coba lagi!")
+        },
+        {
+            "id": 2,
+            "pertanyaan": "2. Berdasarkan metode Ostwald, jika waktu alir sampel dua kali lebih lama dari air suling sedangkan densitas keduanya dianggap sama, maka viskositas sampel adalah...",
+            "opsi": ["A. Setengah dari viskositas air suling", "B. Sama dengan viskositas air suling", "C. Dua kali viskositas air suling", "D. Empat kali viskositas air suling"],
+            "jawaban": "C. Dua kali viskositas air suling"
+        },
+        {
+            "id": 3,
+            "pertanyaan": "3. Sebuah benda mula-mula diam, kemudian diberi gaya total sebesar 20 N. Jika massa benda tersebut adalah 4 kg, berapakah percepatan yang dialami benda?",
+            "opsi": ["A. 2 m/s²", "B. 4 m/s²", "C. 5 m/s²", "D. 80 m/s²"],
+            "jawaban": "C. 5 m/s²"
+        },
+        {
+            "id": 4,
+            "pertanyaan": "4. Satuan viskositas laboratorium yang setara dengan 0.01 Poise (P) dinamakan...",
+            "opsi": ["A. Centipoise (cP)", "B. Pascal Sekon (Pa·s)", "C. Milipoise (mP)", "D. KiloPoise (kP)"],
+            "jawaban": "A. Centipoise (cP)"
+        },
+        {
+            "id": 5,
+            "pertanyaan": "5. Faktor utama yang memengaruhi besarnya pertambahan panjang (ΔL) suatu benda padat saat mengalami pemuaian termal adalah...",
+            "opsi": ["A. Panjang awal, koefisien muai panjang, dan perubahan suhu", "B. Kecepatan pemanasan dan volume benda", "C. Tekanan udara sekitar dan bentuk penampang", "D. Kalor jenis dan massa total benda"],
+            "jawaban": "A. Panjang awal, koefisien muai panjang, dan perubahan suhu"
+        },
+        {
+            "id": 6,
+            "pertanyaan": "6. Hukum Fisika yang menjelaskan bahwa gaya angkat ke atas pada benda di dalam zat cair setara dengan berat zat cair yang dipindahkan adalah...",
+            "opsi": ["A. Hukum Bernoulli", "B. Hukum Archimedes", "C. Hukum Stokes", "D. Hukum Pascal"],
+            "jawaban": "B. Hukum Archimedes"
+        },
+   
