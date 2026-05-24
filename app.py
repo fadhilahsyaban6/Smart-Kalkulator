@@ -1,4 +1,4 @@
-import streamlit as st
+    import streamlit as st
 import numpy as np
 import pandas as pd
 import math
@@ -18,7 +18,7 @@ st.markdown("""
 # ==========================================
 # SIDEBAR NAVIGATION
 # ==========================================
-st.sidebar.title("⚛️ Smart Fisika V2.7")
+st.sidebar.title("⚛️ Smart Fisika V2.8")
 st.sidebar.markdown("---")
 menu = st.sidebar.radio(
     "Pilih Menu:",
@@ -294,14 +294,13 @@ elif menu == "Auto Unit Converter":
         st.success(f"**Hasil:** {nilai * (faktor[dari] / faktor[ke]):.6f} {ke}")
 
 # ==========================================
-# MENU 5: KUIS FISIKA DASAR (7 SOAL - SAFE STRING)
+# MENU 5: KUIS FISIKA DASAR (7 SOAL)
 # ==========================================
 elif menu == "Kuis Fisika Dasar":
     st.title("✍️ Kuis Mandiri Fisika (7 Soal)")
     st.markdown("Jawablah seluruh pertanyaan di bawah ini, kemudian klik tombol **Kirim Semua Jawaban** di bagian paling bawah.")
     
-    soal_list = 
-    ]
+    soal_list = [
         {
             "id": 1,
             "pertanyaan": "1. Jika Anda menimbang piknometer seberat 25 gram dalam keadaan kosong, lalu menjadi 50 gram saat diisi penuh cairan bervolume 25 mL, berapakah kerapatan cairan tersebut?",
@@ -329,7 +328,7 @@ elif menu == "Kuis Fisika Dasar":
         {
             "id": 5,
             "pertanyaan": "5. Faktor utama yang memengaruhi besarnya pertambahan panjang (ΔL) suatu benda padat saat mengalami pemuaian termal adalah...",
-            "opsi": ["A. Panjang awal, koefisien muai panjang, dan perubahan suhu", "B. Kecepatan pemanasan dan volume benda", "C. Tekanan udara sekitar dan bentuk penampang", "D. Kalor jenis dan massa total benda"],
+            "opsi": ["A. Panjang awal, koefisien muai panjang, dan perubahan suhu", "B. Kecepatan pemanasan and volume benda", "C. Tekanan udara sekitar dan bentuk penampang", "D. Kalor jenis dan massa total benda"],
             "jawaban": "A. Panjang awal, koefisien muai panjang, dan perubahan suhu"
         },
         {
@@ -338,8 +337,8 @@ elif menu == "Kuis Fisika Dasar":
             "opsi": ["A. Hukum Bernoulli", "B. Hukum Archimedes", "C. Hukum Stokes", "D. Hukum Pascal"],
             "jawaban": "B. Hukum Archimedes"
         },
-        
+        {
             "id": 7,
             "pertanyaan": "7. Jika hasil pembacaan Skala Utama jangka sorong adalah 3.1 cm "
                           "dan Garis Nonius yang sejajar berada di angka 4 "
-        
+                      
